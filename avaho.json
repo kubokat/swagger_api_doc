@@ -1,0 +1,1256 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Avaho api swagger"
+  },
+  "host": "api.avaho.ru",
+  "tags": [
+    {
+      "name": "buildings",
+      "description": "Access to buildings"
+    },
+    {
+      "name": "flats",
+      "description": "Access to flats"
+    },
+    {
+      "name": "geo",
+      "description": "Access to geo list"
+    },
+    {
+      "name": "suggest",
+      "description": "Filter by text"
+    },
+    {
+      "name": "auth",
+      "description": "Registration and authorization functions"
+    }
+  ],
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/buildings": {
+      "get": {
+        "tags": [
+          "buildings"
+        ],
+        "summary": "Get a list of buildings",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "offset",
+            "default": 0,
+            "type": "integer",
+            "description": "The number of items to skip before starting to collect the result"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "default": 10,
+            "type": "integer",
+            "description": "The numbers of items to return"
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "type": "string",
+            "description": "Sorting result by price, metro distance",
+            "enum": [
+              "price",
+              "price-desc",
+              "metro"
+            ]
+          },
+          {
+            "in": "query",
+            "name": "rooms[]",
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 5,
+            "uniqueItems": true,
+            "collectionFormat": "multi",
+            "description": "Rooms list for filter",
+            "items": {
+              "type": "string",
+              "enum": [
+                "studio",
+                "openplan",
+                "1",
+                "2",
+                "3",
+                "4"
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "name": "deadline[]",
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 4,
+            "uniqueItems": true,
+            "collectionFormat": "multi",
+            "description": "Deadline list for filter",
+            "items": {
+              "type": "string",
+              "enum": [
+                "1",
+                "2021",
+                "2022",
+                "2023x"
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "name": "otdelka[]",
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 5,
+            "uniqueItems": true,
+            "collectionFormat": "multi",
+            "description": "Deadline list for filter",
+            "items": {
+              "type": "integer",
+              "enum": [
+                1,
+                2,
+                3,
+                4,
+                5
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "name": "build_category_id[]",
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 5,
+            "uniqueItems": true,
+            "collectionFormat": "multi",
+            "description": "Build category list for filter('Монолит', 'Монолит-кирпич', 'Кирпич')",
+            "items": {
+              "type": "integer",
+              "enum": [
+                5,
+                14,
+                17,
+                10
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "name": "metro",
+            "type": "array",
+            "uniqueItems": true,
+            "collectionFormat": "csv",
+            "description": "Metro ids for filter",
+            "items": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "firms",
+            "type": "array",
+            "uniqueItems": true,
+            "collectionFormat": "csv",
+            "description": "Developer ids for filter",
+            "items": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "okrug",
+            "type": "array",
+            "uniqueItems": true,
+            "collectionFormat": "csv",
+            "description": "Okrug ids of the Moscow",
+            "items": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "okrug_district",
+            "type": "array",
+            "uniqueItems": true,
+            "collectionFormat": "csv",
+            "description": "District ids of the Moscow",
+            "items": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "okrug_mo",
+            "type": "array",
+            "uniqueItems": true,
+            "collectionFormat": "csv",
+            "description": "Okrug ids of the Moscow region",
+            "items": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "district",
+            "type": "array",
+            "uniqueItems": true,
+            "collectionFormat": "csv",
+            "description": "District ids of the Moscow region",
+            "items": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "direction",
+            "type": "array",
+            "uniqueItems": true,
+            "collectionFormat": "csv",
+            "description": "Highway ids to filter",
+            "items": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "readiness",
+            "type": "array",
+            "uniqueItems": true,
+            "collectionFormat": "csv",
+            "description": "Construction stage",
+            "items": {
+              "type": "integer",
+              "enum": [
+                6,
+                13,
+                34
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "name": "parking[]",
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 2,
+            "uniqueItems": true,
+            "collectionFormat": "multi",
+            "items": {
+              "type": "string",
+              "enum": [
+                "подземный паркинг",
+                "надземный многоуровневый паркинг"
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "name": "grade[]",
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 4,
+            "uniqueItems": true,
+            "collectionFormat": "multi",
+            "items": {
+              "type": "string",
+              "enum": [
+                "эконом-класс",
+                "комфорт-клас",
+                "бизнес-класс",
+                "элит-класс"
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "name": "sell_stage",
+            "type": "integer",
+            "description": "Sell stage"
+          },
+          {
+            "in": "query",
+            "name": "apartment",
+            "type": "string",
+            "description": "Apartment flag",
+            "enum": [
+              "without",
+              "1"
+            ]
+          },
+          {
+            "in": "query",
+            "name": "price_ot",
+            "type": "integer",
+            "description": "Filter by min price"
+          },
+          {
+            "in": "query",
+            "name": "price_do",
+            "type": "integer",
+            "description": "Filter by max price"
+          },
+          {
+            "in": "query",
+            "name": "square_ot",
+            "type": "integer",
+            "description": "Filter by min square"
+          },
+          {
+            "in": "query",
+            "name": "square_do",
+            "type": "integer",
+            "description": "Filter by max square"
+          },
+          {
+            "in": "query",
+            "name": "fence",
+            "type": "integer",
+            "enum": [
+              1
+            ]
+          },
+          {
+            "in": "query",
+            "name": "garbage",
+            "type": "integer",
+            "enum": [
+              1
+            ]
+          },
+          {
+            "in": "query",
+            "name": "boxroom",
+            "type": "integer",
+            "enum": [
+              1
+            ]
+          },
+          {
+            "in": "query",
+            "name": "panoram",
+            "type": "integer",
+            "enum": [
+              1
+            ]
+          },
+          {
+            "in": "query",
+            "name": "arc_style_id",
+            "type": "integer",
+            "enum": [
+              1
+            ]
+          },
+          {
+            "in": "query",
+            "name": "multilevel",
+            "type": "integer",
+            "enum": [
+              1
+            ]
+          },
+          {
+            "in": "query",
+            "name": "yard_without_cars",
+            "type": "integer",
+            "enum": [
+              1
+            ]
+          },
+          {
+            "in": "query",
+            "name": "mjk",
+            "type": "integer",
+            "enum": [
+              1
+            ]
+          },
+          {
+            "in": "query",
+            "name": "action",
+            "type": "integer",
+            "enum": [
+              1
+            ]
+          },
+          {
+            "in": "query",
+            "name": "penthouse",
+            "type": "integer",
+            "enum": [
+              1
+            ]
+          },
+          {
+            "name": "high",
+            "in": "query",
+            "type": "integer",
+            "enum": [
+              1
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ListingBuilding"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/buildings/{buildingId}": {
+      "get": {
+        "tags": [
+          "buildings"
+        ],
+        "summary": "Get building by id",
+        "description": "Returns a single building",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "buildingId",
+            "description": "ID of bilding to return",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/SingleBuilding"
+            }
+          },
+          "404": {
+            "description": "Building not found"
+          }
+        }
+      }
+    },
+    "/flats": {
+      "get": {
+        "tags": ["flats"],
+        "summary": "Get a list of flats",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "offset",
+            "default": 0,
+            "type": "integer",
+            "description": "The number of items to skip before starting to collect the result"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "default": 10,
+            "type": "integer",
+            "description": "The numbers of items to return"
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "type": "string",
+            "description": "Sorting result by square, floor, price",
+            "enum": [
+              "price",
+              "price-desc",
+              "flat_square",
+              "flat_square_desc",
+              "etag",
+              "etag_desc"
+            ]
+          },
+          {
+            "in": "query",
+            "name": "rooms[]",
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 5,
+            "uniqueItems": true,
+            "collectionFormat": "multi",
+            "description": "Rooms list for filter",
+            "items": {
+              "type": "string",
+              "enum": [
+                "studio",
+                "openplan",
+                "1",
+                "2",
+                "3",
+                "4"
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "name": "within",
+            "type": "integer",
+            "description": "Parent id filter"
+          },
+          {
+            "in": "query",
+            "name": "price_ot",
+            "type": "integer",
+            "description": "Filter by min price"
+          },
+          {
+            "in": "query",
+            "name": "price_do",
+            "type": "integer",
+            "description": "Filter by max price"
+          },
+          {
+            "in": "query",
+            "name": "etag_ot",
+            "type": "integer",
+            "description": "Filter by min floor"
+          },
+          {
+            "in": "query",
+            "name": "etag_do",
+            "type": "integer",
+            "description": "Filter by max floor"
+          },
+          {
+            "in": "query",
+            "name": "square_ot",
+            "type": "integer",
+            "description": "Filter by min square"
+          },
+          {
+            "in": "query",
+            "name": "square_do",
+            "type": "integer",
+            "description": "Filter by max square"
+          },
+          {
+            "in": "query",
+            "name": "firm",
+            "type": "integer",
+            "description": "Filter by seller"
+          },
+          {
+            "in": "query",
+            "name": "korp_ids[]",
+            "type": "array",
+            "uniqueItems": true,
+            "collectionFormat": "multi",
+            "description": "Blocks id list for filter",
+            "items": {
+              "type": "integer",
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/definitions/ListingFlats"
+                      }
+                    },
+                    "total": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/metro": {
+      "get": {
+        "tags": [
+          "geo"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "offset",
+            "default": 0,
+            "type": "integer",
+            "description": "The number of items to skip before starting to collect the result"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "default": 0,
+            "type": "integer",
+            "description": "The numbers of items to return"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Metro"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/district": {
+      "get": {
+        "tags": [
+          "geo"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Geo"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/okrug_district": {
+      "get": {
+        "tags": [
+          "geo"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Geo"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/suggestion": {
+      "get": {
+        "tags": [
+          "suggestion"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "q",
+            "type": "string",
+            "description": "text request"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Suggest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/{deviceToken}": {
+      "get": {
+        "tags": [
+          "auth"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "deviceToken",
+            "description": "Device token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Token"
+            }
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "JWT": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "definitions": {
+    "Token": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        }
+      }
+    },
+    "Geo": {
+      "type": "array",
+      "items": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "example": 87
+          },
+          "name": {
+            "type": "string",
+            "example": "Академический район"
+          }
+        }
+      }
+    },
+    "Suggest": {
+      "type": "array",
+      "items": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "example": 87
+          },
+          "region_id": {
+            "type": "integer",
+            "example": 50
+          },
+          "geotype": {
+            "type": "string",
+            "example": "building"
+          },
+          "value": {
+            "type": "string",
+            "example": "ЖК Кутузовская ривьера"
+          }
+        }
+      }
+    },
+    "Metro": {
+      "type": "array",
+      "items": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "example": 47
+          },
+          "name": {
+            "type": "string",
+            "example": "Динамо"
+          },
+          "colors": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "color": {
+                  "type": "string"
+                },
+                "mck": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "opened": {
+            "type": "integer"
+          }
+        }
+      }
+    },
+    "ListingMetro": {
+      "type": "array",
+      "items": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Динамо"
+          },
+          "colors": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "color": {
+                  "type": "string"
+                },
+                "mck": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "opened": {
+            "type": "integer"
+          },
+          "icon": {
+            "type": "string",
+            "enum": [
+              "walk",
+              "car",
+              "bus"
+            ]
+          },
+          "time": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      }
+    },
+    "Prices": {
+      "type": "array",
+      "items": {
+        "properties": {
+          "room_type": {
+            "type": "string",
+            "example": "openplan"
+          },
+          "price_from": {
+            "type": "integer"
+          },
+          "price_to": {
+            "type": "integer"
+          },
+          "square_from": {
+            "type": "integer"
+          },
+          "square_to": {
+            "type": "integer"
+          },
+          "price_square_from": {
+            "type": "integer"
+          },
+          "price_square_to": {
+            "type": "integer"
+          },
+          "remaining": {
+            "type": "string",
+            "example": "41 квартира"
+          }
+        }
+      }
+    },
+    "SingleBuilding": {
+      "type": "object",
+      "properties": {
+        "images": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "format": "int64"
+              },
+              "url": {
+                "type": "string",
+                "example": "11499133_f68cf256fe3ff531d4121873d2c74f1b.w883_h571_q90.jpg"
+              }
+            }
+          }
+        },
+        "options": {
+          "type": "object",
+          "properties": {
+            "developer": {
+              "type": "string",
+              "example": "Инград"
+            },
+            "deadline": {
+              "type": "string",
+              "example": "I кв. 2024"
+            },
+            "sell_form_id": {
+              "type": "string",
+              "example": "ДДУ (договор долевого участия 214-ФЗ)"
+            },
+            "sell_stage": {
+              "type": "string",
+              "example": "идут продажи от застройщика"
+            },
+            "region": {
+              "type": "string",
+              "example": "Московская область"
+            },
+            "district": {
+              "type": "string",
+              "example": "Ленинский район"
+            },
+            "nas_punkt": {
+              "type": "string",
+              "example": "Развилка"
+            },
+            "distance": {
+              "type": "integer",
+              "example": 3
+            },
+            "grade": {
+              "type": "string",
+              "example": "комфорт-класс"
+            },
+            "etag_total": {
+              "type": "integer",
+              "example": 17
+            },
+            "potolok_height": {
+              "type": "number",
+              "example": 2.75
+            },
+            "build_category_id": {
+              "type": "string",
+              "example": "Монолит-кирпич"
+            },
+            "otdelka": {
+              "type": "string",
+              "example": "Без отделки (Корпус 1, Корпус 2)"
+            },
+            "panoram": {
+              "type": "string",
+              "example": "есть"
+            },
+            "military_ipoteka": {
+              "type": "string",
+              "example": "есть"
+            },
+            "installments": {
+              "type": "string",
+              "example": "есть"
+            },
+            "parking": {
+              "type": "string",
+              "example": "автостоянка"
+            },
+            "feature": {
+              "type": "string",
+              "example": "В 100 метрах от Юго-Восточного лесопарка, собственный детский сад на 85 мест, ландшафтный двор площадью 1 га"
+            }
+          }
+        },
+        "coords": {
+          "type": "object",
+          "properties": {
+            "latitude": {
+              "type": "number",
+              "example": 55.593233066971
+            },
+            "longitude": {
+              "type": "number",
+              "example": 37.758876620587
+            }
+          }
+        },
+        "plgn": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "latitude": {
+                "type": "number",
+                "example": 55.59341026950449
+              },
+              "longitude": {
+                "type": "number",
+                "example": 37.757821529043696
+              }
+            }
+          }
+        }
+      }
+    },
+    "ListingFlats": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "price": {
+          "type": "integer"
+        },
+        "rooms": {
+          "type": "integer"
+        },
+        "etag": {
+          "type": "integer"
+        },
+        "etag_total": {
+          "type": "integer"
+        },
+        "flat_square": {
+          "type": "integer"
+        },
+        "images": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "example": "776000_ad19ae8d4155f657b0aaab6b7a2ef6e0.w883_h571_q90.jpg"
+          }
+        },
+        "block_id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "parent": {
+          "$ref": "#/definitions/ListingBuilding"
+        }
+      }
+    },
+    "ListingBuilding": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string",
+          "example": "ВТБ Арена Парк"
+        },
+        "place": {
+          "type": "object",
+          "properties": {
+            "region": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                }
+              }
+            },
+            "okrug": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "name_short": {
+                  "type": "string"
+                }
+              }
+            },
+            "district": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                }
+              }
+            },
+            "okrug_district": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                }
+              }
+            },
+            "nas_punkt": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "novostroy_category": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer"
+            },
+            "name": {
+              "type": "string",
+              "example": "Жилой квартал"
+            }
+          }
+        },
+
+        "photo": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "example": "776000_ad19ae8d4155f657b0aaab6b7a2ef6e0.w883_h571_q90.jpg"
+          }
+        },
+        "deadline": {
+          "type": "string",
+          "example": "сдан"
+        },
+        "blocks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              },
+              "deadline_quarter": {
+                "type": "string",
+                "example": "II"
+              },
+              "deadline_year": {
+                "type": "integer",
+                "example": "2022"
+              },
+              "lift": {
+                "type": "string"
+              },
+              "etag_total": {
+                "type": "string"
+              },
+              "flat_amount": {
+                "type": "integer"
+              },
+              "height_ot": {
+                "type": "number"
+              },
+              "height_do": {
+                "type": "number"
+              },
+              "plgn": {
+                "type": "string"
+              },
+              "build_category": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                }
+              },
+              "readiness": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                }
+              },
+              "sell_form": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                }
+              },
+              "sell_stage": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "geo": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "example": "Москва, САО, Аэропорт"
+            },
+            "longitude": {
+              "type": "number",
+              "example": 37.699399335848
+            },
+            "latitude": {
+              "type": "number",
+              "example": 55.78003725398
+            }
+          }
+        },
+        "phone": {
+          "type": "string",
+          "example": "+7 (495) 023-78-94"
+        },
+        "metro": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ListingMetro"
+          }
+        },
+        "prices": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Prices"
+          }
+        },
+        "feedbackCount": {
+          "type": "integer",
+          "example": 86
+        }
+      }
+    }
+  }
+}
