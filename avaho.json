@@ -74,6 +74,7 @@
             "description": "Rooms list for filter",
             "items": {
               "type": "string",
+              "description"
               "enum": [
                 "studio",
                 "openplan",
