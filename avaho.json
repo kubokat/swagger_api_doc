@@ -641,12 +641,28 @@
         }
       }
     },
-    "/district": {
+    "/direction": {
       "get": {
         "tags": [
           "geo"
         ],
-        "parameters": [],
+        "summary": "Get a list of highway",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "offset",
+            "default": 0,
+            "type": "integer",
+            "description": "The number of items to skip before starting to collect the result"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "default": 0,
+            "type": "integer",
+            "description": "The numbers of items to return"
+          }
+        ],
         "responses": {
           "200": {
             "description": "successful operation",
@@ -660,12 +676,133 @@
         }
       }
     },
+    "/okrug": {
+      "get": {
+        "tags": [
+          "geo"
+        ],
+        "summary": "Moscow okrug",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "offset",
+            "default": 0,
+            "type": "integer",
+            "description": "The number of items to skip before starting to collect the result"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "default": 0,
+            "type": "integer",
+            "description": "The numbers of items to return"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Okrug"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/okrugmo": {
+      "get": {
+        "tags": [
+          "geo"
+        ],
+        "summary": "Moscow region okrug",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "offset",
+            "default": 0,
+            "type": "integer",
+            "description": "The number of items to skip before starting to collect the result"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "default": 0,
+            "type": "integer",
+            "description": "The numbers of items to return"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Geo"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/district": {
+      "get": {
+        "tags": [
+          "geo"
+        ],
+        "summary": "Region district",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "offset",
+            "default": 0,
+            "type": "integer",
+            "description": "The number of items to skip before starting to collect the result"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "default": 0,
+            "type": "integer",
+            "description": "The numbers of items to return"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/District"
+              }
+            }
+          }
+        }
+      }
+    },
     "/okrug_district": {
       "get": {
         "tags": [
           "geo"
         ],
-        "parameters": [],
+        "summary": "Moscow district",
+        "parameters": [
+          {
+          "in": "query",
+          "name": "offset",
+          "default": 0,
+          "type": "integer",
+          "description": "The number of items to skip before starting to collect the result"
+        },
+          {
+            "in": "query",
+            "name": "limit",
+            "default": 0,
+            "type": "integer",
+            "description": "The numbers of items to return"
+          }
+        ],
         "responses": {
           "200": {
             "description": "successful operation",
@@ -762,6 +899,63 @@
         }
       }
     },
+    "Okrug": {
+      "type": "array",
+      "items": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "example": 87
+          },
+          "name": {
+            "type": "string",
+            "example": "Центральный"
+          },
+          "name_short": {
+            "type": "string",
+            "example": "ЦАО"
+          },
+          "okrug_district": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/Geo"
+            }
+          }
+        }
+      }
+    },
+    "District": {
+      "type": "array",
+      "items": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "example": 87
+          },
+          "name": {
+            "type": "string",
+            "example": "Центральный"
+          },
+          "okrug_mo": {
+            "type": "object",
+            "description": "Moscow region okrug",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "format": "int64",
+                "example": 87
+              },
+              "name": {
+                "type": "string",
+                "example": "Север"
+              }
+            }
+          }
+        }
+      }
+    },
     "Suggest": {
       "type": "array",
       "items": {
@@ -814,6 +1008,25 @@
           },
           "opened": {
             "type": "integer"
+          },
+          "under_construction": {
+            "type": "boolean"
+          },
+          "lines": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "color": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       }
