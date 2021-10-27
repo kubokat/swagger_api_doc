@@ -1106,127 +1106,357 @@
     "SingleBuilding": {
       "type": "object",
       "properties": {
-        "images": {
+        "id": {
+          "description": "Object id",
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "price_ot": {
+          "type": "integer"
+        },
+
+        "last_update_date": {
+          "description": "Last updated building date",
+          "type": "string",
+          "example": "2021-10-25"
+        },
+
+        "description": {
+          "type": "string"
+        },
+
+        "boxroom:": {
+          "description": "Кладовые помещения",
+          "type": "boolean"
+        },
+
+        "panoram": {
+          "description": "Панорамное остекление",
+          "type": "boolean"
+        },
+
+        "yard_without_cars": {
+          "description": "Двор без машин",
+          "type": "boolean"
+        },
+
+        "view_flat": {
+          "description": "Видовые квартиры",
+          "type": "boolean"
+        },
+
+        "multilevel": {
+          "description": "Двухуровневые квартиры",
+          "type": "boolean"
+        },
+
+        "garbage": {
+          "description": "Без мусоропровода",
+          "type": "boolean"
+        },
+
+        "subsidy": {
+          "description": "Субсидии",
+          "type": "boolean"
+        },
+
+        "military_ipoteka": {
+          "description": "Военная ипотека",
+          "type": "boolean"
+        },
+
+        "installments": {
+          "description": "Рассрочка",
+          "type": "boolean"
+        },
+
+        "place": {
+          "type": "object",
+          "properties": {
+            "railstation": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                }
+              }
+            },
+            "how_to_get": {
+              "description": "Как добраться",
+              "type": "string"
+            },
+
+            "region": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                }
+              }
+            },
+
+            "district": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                }
+              }
+            },
+
+            "nas_punkt": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                }
+              }
+            },
+
+            "direction": {
+              "description": "Highway",
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+
+        "grade": {
+          "description": "Класс жилья",
+          "type": "string",
+          "example": "комфорт-класс"
+        },
+
+        "feature": {
+          "type": "string",
+          "example": "В 100 метрах от Юго-Восточного лесопарка, собственный детский сад на 85 мест, ландшафтный двор площадью 1 га"
+        },
+
+        "fence": {
+          "description": "Огороженная территория",
+          "type": "string"
+        },
+
+        "parking": {
+          "type": "string"
+        },
+
+        "flat_plans": {
+          "type": "array",
+          "items": {
+            "properties": {
+              "img": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "label": {
+                "description": "Short room plan name",
+                "type": "string",
+                "example": "1-комн."
+              }
+            }
+          }
+        },
+
+        "nearby_places":{
+          "type": "array",
+          "items": {
+            "properties": {
+              "img": {
+                "type": "string"
+              },
+              "distance": {
+                "description": "distance from building to place",
+                "type": "number",
+                "example": 17.6659607
+              },
+              "name": {
+                "type": "string",
+                "example": "Томилинский лесопарк"
+              }
+            }
+          }
+        },
+
+        "best_flats": {
+          "type": "array",
+          "items": {
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "price": {
+                "type": "integer"
+              },
+
+              "rooms": {
+                "type": "integer"
+              },
+
+              "etag": {
+                "type": "integer"
+              },
+
+              "etag_total": {
+                "type": "integer"
+              },
+
+              "flat_square": {
+                "type": "integer"
+              },
+
+              "name": {
+                "type": "string",
+                "example": "3-комн."
+              },
+
+              "block_id": {
+                "type": "integer"
+              },
+
+              "in_objects_id": {
+                "description": "Parent id",
+                "type": "integer"
+              }
+            }
+          }
+        },
+
+        "same_items": {
+          "$ref": "#/definitions/ListingBuilding"
+        },
+
+        "deadline": {
+          "type": "string",
+          "example": "I кв. 2024"
+        },
+
+        "blocks": {
           "type": "array",
           "items": {
             "type": "object",
             "properties": {
               "id": {
-                "type": "integer",
-                "format": "int64"
+                "type": "integer"
               },
-              "url": {
+              "name": {
+                "type": "string"
+              },
+              "deadline_quarter": {
                 "type": "string",
-                "example": "11499133_f68cf256fe3ff531d4121873d2c74f1b.w883_h571_q90.jpg"
+                "example": "II"
+              },
+              "deadline_year": {
+                "type": "integer",
+                "example": "2022"
+              },
+              "lift": {
+                "type": "string"
+              },
+              "etag_total": {
+                "type": "string"
+              },
+              "flat_amount": {
+                "type": "integer"
+              },
+              "height_ot": {
+                "type": "number"
+              },
+              "height_do": {
+                "type": "number"
+              },
+              "plgn": {
+                "type": "string"
+              },
+              "build_category": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                }
+              },
+              "readiness": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                }
+              },
+              "sell_form": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                }
+              },
+              "sell_stage": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                }
               }
             }
           }
         },
-        "options": {
+
+        "geo": {
           "type": "object",
           "properties": {
-            "developer": {
-              "type": "string",
-              "example": "Инград"
-            },
-            "deadline": {
-              "type": "string",
-              "example": "I кв. 2024"
-            },
-            "sell_form_id": {
-              "type": "string",
-              "example": "ДДУ (договор долевого участия 214-ФЗ)"
-            },
-            "sell_stage": {
-              "type": "string",
-              "example": "идут продажи от застройщика"
-            },
-            "region": {
-              "type": "string",
-              "example": "Московская область"
-            },
-            "district": {
-              "type": "string",
-              "example": "Ленинский район"
-            },
-            "nas_punkt": {
-              "type": "string",
-              "example": "Развилка"
-            },
-            "distance": {
-              "type": "integer",
-              "example": 3
-            },
-            "grade": {
-              "type": "string",
-              "example": "комфорт-класс"
-            },
-            "etag_total": {
-              "type": "integer",
-              "example": 17
-            },
-            "potolok_height": {
-              "type": "number",
-              "example": 2.75
-            },
-            "build_category_id": {
-              "type": "string",
-              "example": "Монолит-кирпич"
-            },
-            "otdelka": {
-              "type": "string",
-              "example": "Без отделки (Корпус 1, Корпус 2)"
-            },
-            "panoram": {
-              "type": "string",
-              "example": "есть"
-            },
-            "military_ipoteka": {
-              "type": "string",
-              "example": "есть"
-            },
-            "installments": {
-              "type": "string",
-              "example": "есть"
-            },
-            "parking": {
-              "type": "string",
-              "example": "автостоянка"
-            },
-            "feature": {
-              "type": "string",
-              "example": "В 100 метрах от Юго-Восточного лесопарка, собственный детский сад на 85 мест, ландшафтный двор площадью 1 га"
-            }
-          }
-        },
-        "coords": {
-          "type": "object",
-          "properties": {
-            "latitude": {
-              "type": "number",
-              "example": 55.593233066971
+            "title": {
+              "type": "string"
             },
             "longitude": {
-              "type": "number",
-              "example": 37.758876620587
+              "type": "number"
+            },
+            "latitude": {
+              "type": "number"
             }
           }
         },
-        "plgn": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "latitude": {
-                "type": "number",
-                "example": 55.59341026950449
-              },
-              "longitude": {
-                "type": "number",
-                "example": 37.757821529043696
-              }
-            }
-          }
+
+        "feedbackCount": {
+          "type": "integer",
+          "example": 86
         }
       }
     },
