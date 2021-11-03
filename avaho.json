@@ -38,8 +38,8 @@
         ],
         "summary": "Get a list of buildings",
         "parameters": [
-          "$ref": '#/parameters/offsetParam',
-          "$ref": '#/parameters/limitParam',
+          "$ref": "#/parameters/offsetParam",
+          "$ref": "#/parameters/limitParam",
           {
             "in": "query",
             "name": "sort",
@@ -457,7 +457,7 @@
         "tags": ["buildings"],
         "summary": "Get objects for map view",
         "parameters": [
-          "$ref": '#/parameters/limitParam',
+          "$ref": "#/parameters/limitParam",
           {
             "in": "query",
             "name": "bounds[]",
@@ -843,8 +843,8 @@
         "tags": ["flats"],
         "summary": "Get a list of flats",
         "parameters": [
-          "$ref": '#/parameters/offsetParam',
-          "$ref": '#/parameters/limitParam',
+          "$ref": "#/parameters/offsetParam",
+          "$ref": "#/parameters/limitParam",
           {
             "in": "query",
             "name": "sort",
@@ -975,8 +975,8 @@
           "geo"
         ],
         "parameters": [
-          "$ref": '#/parameters/offsetParam',
-          "$ref": '#/parameters/limitParam'
+          "$ref": "#/parameters/offsetParam",
+          "$ref": "#/parameters/limitParam"
         ],
         "responses": {
           "200": {
@@ -998,8 +998,8 @@
         ],
         "summary": "Get a list of highway",
         "parameters": [
-          "$ref": '#/parameters/offsetParam',
-          "$ref": '#/parameters/limitParam'
+          "$ref": "#/parameters/offsetParam",
+          "$ref": "#/parameters/limitParam"
         ],
         "responses": {
           "200": {
@@ -1021,8 +1021,8 @@
         ],
         "summary": "Moscow okrug",
         "parameters": [
-          "$ref": '#/parameters/offsetParam',
-          "$ref": '#/parameters/limitParam'
+          "$ref": "#/parameters/offsetParam",
+          "$ref": "#/parameters/limitParam"
         ],
         "responses": {
           "200": {
@@ -1044,8 +1044,8 @@
         ],
         "summary": "Moscow region okrug",
         "parameters": [
-          "$ref": '#/parameters/offsetParam',
-          "$ref": '#/parameters/limitParam'
+          "$ref": "#/parameters/offsetParam",
+          "$ref": "#/parameters/limitParam"
         ],
         "responses": {
           "200": {
@@ -1067,8 +1067,8 @@
         ],
         "summary": "Region district",
         "parameters": [
-          "$ref": '#/parameters/offsetParam',
-          "$ref": '#/parameters/limitParam'
+          "$ref": "#/parameters/offsetParam",
+          "$ref": "#/parameters/limitParam"
         ],
         "responses": {
           "200": {
@@ -1090,8 +1090,8 @@
         ],
         "summary": "Moscow district",
         "parameters": [
-          "$ref": '#/parameters/offsetParam',
-          "$ref": '#/parameters/limitParam'
+          "$ref": "#/parameters/offsetParam",
+          "$ref": "#/parameters/limitParam"
         ],
         "responses": {
           "200": {
