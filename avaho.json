@@ -38,20 +38,8 @@
         ],
         "summary": "Get a list of buildings",
         "parameters": [
-          {
-            "in": "query",
-            "name": "offset",
-            "default": 0,
-            "type": "integer",
-            "description": "The number of items to skip before starting to collect the result"
-          },
-          {
-            "in": "query",
-            "name": "limit",
-            "default": 10,
-            "type": "integer",
-            "description": "The numbers of items to return"
-          },
+          "$ref": '#/parameters/offsetParam',
+          "$ref": '#/parameters/limitParam',
           {
             "in": "query",
             "name": "sort",
@@ -464,25 +452,399 @@
         }
       }
     },
+    "/map": {
+      "get": {
+        "tags": ["buildings"],
+        "summary": "Get objects for map view",
+        "parameters": [
+          "$ref": '#/parameters/limitParam',
+          {
+            "in": "query",
+            "name": "bounds[]",
+            "description": "Coordinate bounds of map",
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 2,
+            "collectionFormat": "multi",
+            "items": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "rooms[]",
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 5,
+            "uniqueItems": true,
+            "collectionFormat": "multi",
+            "description": "Rooms list for filter: studio(студия), openplan(свободная планировка), 1(1.комн) etc",
+            "items": {
+              "type": "string",
+              "enum": [
+                "studio",
+                "openplan",
+                "1",
+                "2",
+                "3",
+                "4"
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "name": "deadline[]",
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 4,
+            "uniqueItems": true,
+            "collectionFormat": "multi",
+            "description": "Deadline list for filter: 1 - сдан, 2023x - 2023+",
+            "items": {
+              "type": "string",
+              "enum": [
+                "1",
+                "2021",
+                "2022",
+                "2023x"
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "name": "otdelka[]",
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 5,
+            "uniqueItems": true,
+            "collectionFormat": "multi",
+            "description": "Deadline list for filter: 1 - Чистовая, 2 - Без отделки, 3-Черновая, 4- Предчистовая, 5-Под ключ",
+            "items": {
+              "type": "integer",
+              "enum": [
+                1,
+                2,
+                3,
+                4,
+                5
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "name": "build_category_id[]",
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 5,
+            "uniqueItems": true,
+            "collectionFormat": "multi",
+            "description": "Build category list: 1 - Дерево, 5 - Монолит, 14-Монолит-кирпич, 17- Кирпич, 10-Панельный",
+            "items": {
+              "type": "integer",
+              "enum": [
+                5,
+                14,
+                17,
+                10
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "name": "metro",
+            "type": "array",
+            "uniqueItems": true,
+            "collectionFormat": "csv",
+            "description": "Metro ids for filter",
+            "items": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "firms",
+            "type": "array",
+            "uniqueItems": true,
+            "collectionFormat": "csv",
+            "description": "Developer ids for filter",
+            "items": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "okrug",
+            "type": "array",
+            "uniqueItems": true,
+            "collectionFormat": "csv",
+            "description": "Okrug ids of the Moscow",
+            "items": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "okrug_district",
+            "type": "array",
+            "uniqueItems": true,
+            "collectionFormat": "csv",
+            "description": "District ids of the Moscow",
+            "items": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "okrug_mo",
+            "type": "array",
+            "uniqueItems": true,
+            "collectionFormat": "csv",
+            "description": "Okrug ids of the Moscow region",
+            "items": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "district",
+            "type": "array",
+            "uniqueItems": true,
+            "collectionFormat": "csv",
+            "description": "District ids of the Moscow region",
+            "items": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "direction",
+            "type": "array",
+            "uniqueItems": true,
+            "collectionFormat": "csv",
+            "description": "Highway ids to filter",
+            "items": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "readiness",
+            "type": "array",
+            "uniqueItems": true,
+            "collectionFormat": "csv",
+            "description": "Construction stage: 6 - строительство завершено,13 - идет строительство, 34 - идут внутренние работы",
+            "items": {
+              "type": "integer",
+              "enum": [
+                6,
+                13,
+                34
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "name": "parking[]",
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 2,
+            "uniqueItems": true,
+            "collectionFormat": "multi",
+            "items": {
+              "type": "string",
+              "enum": [
+                "подземный паркинг",
+                "надземный многоуровневый паркинг"
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "name": "grade[]",
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 4,
+            "uniqueItems": true,
+            "collectionFormat": "multi",
+            "items": {
+              "type": "string",
+              "enum": [
+                "эконом-класс",
+                "комфорт-клас",
+                "бизнес-класс",
+                "элит-класс"
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "name": "sell_stage",
+            "type": "integer",
+            "description": "Sell stage"
+          },
+          {
+            "in": "query",
+            "name": "metro-time",
+            "type": "integer",
+            "description": "Time to metro "
+          },
+          {
+            "in": "query",
+            "name": "metro-type",
+            "type": "string",
+            "description": "Time to metro (driving, transit)"
+          },
+          {
+            "in": "query",
+            "name": "apartment",
+            "type": "string",
+            "description": "Apartment flag: 1 -  апартаменты, without - без апартаментов",
+            "enum": [
+              "without",
+              "1"
+            ]
+          },
+          {
+            "in": "query",
+            "name": "price_ot",
+            "type": "integer",
+            "description": "Filter by min price"
+          },
+          {
+            "in": "query",
+            "name": "price_do",
+            "type": "integer",
+            "description": "Filter by max price"
+          },
+          {
+            "in": "query",
+            "name": "square_ot",
+            "type": "integer",
+            "description": "Filter by min square"
+          },
+          {
+            "in": "query",
+            "name": "square_do",
+            "type": "integer",
+            "description": "Filter by max square"
+          },
+          {
+            "in": "query",
+            "name": "fence",
+            "type": "integer",
+            "description": "1 - огороженная территория",
+            "enum": [
+              1
+            ]
+          },
+          {
+            "in": "query",
+            "name": "garbage",
+            "type": "integer",
+            "description": "1 - без мусоропровода",
+            "enum": [
+              1
+            ]
+          },
+          {
+            "in": "query",
+            "name": "boxroom",
+            "type": "integer",
+            "description": "1 - кладовые помещения",
+            "enum": [
+              1
+            ]
+          },
+          {
+            "in": "query",
+            "name": "panoram",
+            "type": "integer",
+            "description": "1 - панорамное остекление",
+            "enum": [
+              1
+            ]
+          },
+          {
+            "in": "query",
+            "name": "arc_style_id",
+            "type": "integer",
+            "description": "1 - лофт",
+            "enum": [
+              1
+            ]
+          },
+          {
+            "in": "query",
+            "name": "multilevel",
+            "type": "integer",
+            "description": "1 -  двухуровневые",
+            "enum": [
+              1
+            ]
+          },
+          {
+            "in": "query",
+            "name": "yard_without_cars",
+            "type": "integer",
+            "description": "1 -  Двор без машин",
+            "enum": [
+              1
+            ]
+          },
+          {
+            "in": "query",
+            "name": "mjk",
+            "type": "integer",
+            "description": "1 - малоэтажные комплексы",
+            "enum": [
+              1
+            ]
+          },
+          {
+            "in": "query",
+            "name": "action",
+            "type": "integer",
+            "description": "1 - скидки, акции",
+            "enum": [
+              1
+            ]
+          },
+          {
+            "in": "query",
+            "name": "penthouse",
+            "type": "integer",
+            "description": "1 - Пентхаусы",
+            "enum": [
+              1
+            ]
+          },
+          {
+            "name": "high",
+            "in": "query",
+            "type": "integer",
+            "description": "1 - Высотки",
+            "enum": [
+              1
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Map"
+            }
+          }
+        }
+      }
+    },
     "/flats": {
       "get": {
         "tags": ["flats"],
         "summary": "Get a list of flats",
         "parameters": [
-          {
-            "in": "query",
-            "name": "offset",
-            "default": 0,
-            "type": "integer",
-            "description": "The number of items to skip before starting to collect the result"
-          },
-          {
-            "in": "query",
-            "name": "limit",
-            "default": 10,
-            "type": "integer",
-            "description": "The numbers of items to return"
-          },
+          "$ref": '#/parameters/offsetParam',
+          "$ref": '#/parameters/limitParam',
           {
             "in": "query",
             "name": "sort",
@@ -613,20 +975,8 @@
           "geo"
         ],
         "parameters": [
-          {
-            "in": "query",
-            "name": "offset",
-            "default": 0,
-            "type": "integer",
-            "description": "The number of items to skip before starting to collect the result"
-          },
-          {
-            "in": "query",
-            "name": "limit",
-            "default": 0,
-            "type": "integer",
-            "description": "The numbers of items to return"
-          }
+          "$ref": '#/parameters/offsetParam',
+          "$ref": '#/parameters/limitParam'
         ],
         "responses": {
           "200": {
@@ -648,20 +998,8 @@
         ],
         "summary": "Get a list of highway",
         "parameters": [
-          {
-            "in": "query",
-            "name": "offset",
-            "default": 0,
-            "type": "integer",
-            "description": "The number of items to skip before starting to collect the result"
-          },
-          {
-            "in": "query",
-            "name": "limit",
-            "default": 0,
-            "type": "integer",
-            "description": "The numbers of items to return"
-          }
+          "$ref": '#/parameters/offsetParam',
+          "$ref": '#/parameters/limitParam'
         ],
         "responses": {
           "200": {
@@ -683,20 +1021,8 @@
         ],
         "summary": "Moscow okrug",
         "parameters": [
-          {
-            "in": "query",
-            "name": "offset",
-            "default": 0,
-            "type": "integer",
-            "description": "The number of items to skip before starting to collect the result"
-          },
-          {
-            "in": "query",
-            "name": "limit",
-            "default": 0,
-            "type": "integer",
-            "description": "The numbers of items to return"
-          }
+          "$ref": '#/parameters/offsetParam',
+          "$ref": '#/parameters/limitParam'
         ],
         "responses": {
           "200": {
@@ -718,20 +1044,8 @@
         ],
         "summary": "Moscow region okrug",
         "parameters": [
-          {
-            "in": "query",
-            "name": "offset",
-            "default": 0,
-            "type": "integer",
-            "description": "The number of items to skip before starting to collect the result"
-          },
-          {
-            "in": "query",
-            "name": "limit",
-            "default": 0,
-            "type": "integer",
-            "description": "The numbers of items to return"
-          }
+          "$ref": '#/parameters/offsetParam',
+          "$ref": '#/parameters/limitParam'
         ],
         "responses": {
           "200": {
@@ -753,20 +1067,8 @@
         ],
         "summary": "Region district",
         "parameters": [
-          {
-            "in": "query",
-            "name": "offset",
-            "default": 0,
-            "type": "integer",
-            "description": "The number of items to skip before starting to collect the result"
-          },
-          {
-            "in": "query",
-            "name": "limit",
-            "default": 0,
-            "type": "integer",
-            "description": "The numbers of items to return"
-          }
+          "$ref": '#/parameters/offsetParam',
+          "$ref": '#/parameters/limitParam'
         ],
         "responses": {
           "200": {
@@ -788,20 +1090,8 @@
         ],
         "summary": "Moscow district",
         "parameters": [
-          {
-          "in": "query",
-          "name": "offset",
-          "default": 0,
-          "type": "integer",
-          "description": "The number of items to skip before starting to collect the result"
-        },
-          {
-            "in": "query",
-            "name": "limit",
-            "default": 0,
-            "type": "integer",
-            "description": "The numbers of items to return"
-          }
+          "$ref": '#/parameters/offsetParam',
+          "$ref": '#/parameters/limitParam'
         ],
         "responses": {
           "200": {
@@ -1717,6 +2007,40 @@
           "example": 86
         }
       }
+    },
+    "Map": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "lat": {
+          "type": "number"
+        },
+        "lng": {
+          "type": "number"
+        },
+        "price_ot": {
+          "type": "integer"
+        }
+      }
+    }
+  },
+
+  "parameters": {
+    "offsetParam": {
+      "in": "query",
+      "name": "offset",
+      "default": 0,
+      "type": "integer",
+      "description": "The number of items to skip before starting to collect the result"
+    },
+    "limitParam": {
+      "in": "query",
+      "name": "limit",
+      "default": 10,
+      "type": "integer",
+      "description": "The numbers of items to return"
     }
   }
 }
