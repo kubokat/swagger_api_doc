@@ -261,7 +261,73 @@
             "in": "query",
             "name": "sell_stage",
             "type": "integer",
-            "description": "Sell stage"
+            "description": "Sell stage: 1-идут продажи от застройщика, 2-открыто бронирование, 3-продажи от застройщика не начаты, 4-продажи от застройщика приостановлены, 5-продано, 6-скоро в продаже"
+          },
+          {
+            "in": "query",
+            "name": "sell_form[]",
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 5,
+            "uniqueItems": true,
+            "collectionFormat": "multi",
+            "description": "Sell form list for filter: 1 - ДДУ (договор долевого участия 214-ФЗ), 2 - договор займа, 3 - договор инвестирования, 4- договор купли-продажи / переуступка ДДУ, 5 - жск, 8 - предварительный договор купли-продажи",
+            "items": {
+              "type": "integer",
+              "enum": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                8
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "name": "installments",
+            "type": "integer",
+            "description": "Рассрочка",
+            "enum": [
+              1
+            ]
+          },
+          {
+            "in": "query",
+            "name": "trade_in",
+            "type": "integer",
+            "description": "Трейд-ин",
+            "enum": [
+              1
+            ]
+          },
+          {
+            "in": "query",
+            "name": "military_ipoteka",
+            "type": "integer",
+            "description": "военная ипотека",
+            "enum": [
+              1
+            ]
+          },
+          {
+            "in": "query",
+            "name": "subsidy",
+            "type": "integer",
+            "description": "субсидии",
+            "enum": [
+              1
+            ]
+          },
+          {
+            "in": "query",
+            "name": "w_first_pay",
+            "type": "integer",
+            "description": "Без первоначального взноса",
+            "enum": [
+              1
+            ]
           },
           {
             "in": "query",
@@ -313,7 +379,7 @@
             "in": "query",
             "name": "fence",
             "type": "integer",
-            "description": "1 - огороженная территория",
+            "description": "огороженная территория",
             "enum": [
               1
             ]
@@ -322,7 +388,7 @@
             "in": "query",
             "name": "garbage",
             "type": "integer",
-            "description": "1 - без мусоропровода",
+            "description": "без мусоропровода",
             "enum": [
               1
             ]
@@ -331,7 +397,7 @@
             "in": "query",
             "name": "boxroom",
             "type": "integer",
-            "description": "1 - кладовые помещения",
+            "description": "кладовые помещения",
             "enum": [
               1
             ]
@@ -340,7 +406,7 @@
             "in": "query",
             "name": "panoram",
             "type": "integer",
-            "description": "1 - панорамное остекление",
+            "description": "панорамное остекление",
             "enum": [
               1
             ]
@@ -349,7 +415,7 @@
             "in": "query",
             "name": "arc_style_id",
             "type": "integer",
-            "description": "1 - лофт",
+            "description": "лофт",
             "enum": [
               1
             ]
@@ -358,7 +424,7 @@
             "in": "query",
             "name": "multilevel",
             "type": "integer",
-            "description": "1 -  двухуровневые",
+            "description": "двухуровневые",
             "enum": [
               1
             ]
@@ -367,7 +433,7 @@
             "in": "query",
             "name": "yard_without_cars",
             "type": "integer",
-            "description": "1 -  Двор без машин",
+            "description": "Двор без машин",
             "enum": [
               1
             ]
@@ -376,7 +442,7 @@
             "in": "query",
             "name": "mjk",
             "type": "integer",
-            "description": "1 - малоэтажные комплексы",
+            "description": "малоэтажные комплексы",
             "enum": [
               1
             ]
@@ -385,7 +451,7 @@
             "in": "query",
             "name": "action",
             "type": "integer",
-            "description": "1 - скидки, акции",
+            "description": "скидки, акции",
             "enum": [
               1
             ]
@@ -394,7 +460,7 @@
             "in": "query",
             "name": "penthouse",
             "type": "integer",
-            "description": "1 - Пентхаусы",
+            "description": "Пентхаусы",
             "enum": [
               1
             ]
@@ -403,7 +469,7 @@
             "name": "high",
             "in": "query",
             "type": "integer",
-            "description": "1 - Высотки",
+            "description": "Высотки",
             "enum": [
               1
             ]
