@@ -1326,6 +1326,8 @@
             "example": 50
           },
           "geotype": {
+            "description": 
+            "Geo developer == firms in filter, geo buildings == ids in filter, street, district, okrug, okrug_district, nas_punkt,metro, direction",
             "type": "string",
             "example": "building"
           },
